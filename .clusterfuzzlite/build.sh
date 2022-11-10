@@ -1,5 +1,5 @@
 #!/bin/bash -eu
-# Copyright 2016 Google Inc.
+# Copyright 2020 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,5 +15,7 @@
 #
 ################################################################################
 
-# Run the OSS-Fuzz script in the curl-fuzzer project.
-./ossfuzz.sh
+make -j$(nproc) all    # Build the fuzz targets.
+
+# Copy the fuzzer executables, zip-ed corpora, option and dictionary files to $OUT
+find . -name '*_fuzzer' -exec cp -v '{}' $OUT ';'
